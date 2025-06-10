@@ -1,0 +1,95 @@
+mkdir %systemdrive%\mount
+
+Dism /Mount-Wim /WimFile:%systemdrive%\install.wim /index:1 /MountDir:%systemdrive%\mount
+
+mkdir %systemdrive%\mount\mount
+mkdir %systemdrive%\mount\soft
+mkdir %systemdrive%\mount\Games
+
+
+####
+reg load HKLM\OFFLINE %systemdrive%\mount\Users\default\ntuser.dat
+
+
+
+
+##### remove onedrive installation (if exist)
+reg delete HKLM\OFFLINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\ /v OneDriveSetup /f
+reg delete HKLM\OFFLINE\SOFTWARE\Microsoft\OneDrive /f
+
+takeown /F %systemdrive%\mount\Windows\SysWOW64\OneDriveSetup.exe /A
+icacls %systemdrive%\mount\Windows\SysWOW64\OneDriveSetup.exe /T /Inheritance:e /grant Администраторы:F
+del %systemdrive%\mount\Windows\SysWOW64\OneDriveSetup.exe
+
+reg unload HKLM\OFFLINE
+
+##########################################################################################
+
+takeown /F %systemdrive%\mount\Windows\System32\OneDriveSettingSyncProvider.dll /A
+icacls %systemdrive%\mount\Windows\System32\OneDriveSettingSyncProvider.dll /T /Inheritance:e /grant Администраторы:F
+del %systemdrive%\mount\Windows\System32\OneDriveSettingSyncProvider.dll
+
+takeown /F %systemdrive%\mount\Windows\SysWOW64\OneDrive.ico /A
+icacls %systemdrive%\mount\Windows\SysWOW64\OneDrive.ico /T /Inheritance:e /grant Администраторы:F
+del %systemdrive%\mount\Windows\SysWOW64\OneDrive.ico
+
+takeown /F %systemdrive%\mount\Windows\SysWOW64\OneDriveSettingSyncProvider.dll /A
+icacls %systemdrive%\mount\Windows\SysWOW64\OneDriveSettingSyncProvider.dll /T /Inheritance:e /grant Администраторы:F
+del %systemdrive%\mount\Windows\SysWOW64\OneDriveSettingSyncProvider.dll
+
+######################################################################################################
+
+##del win dedender (if exist)#########################################################
+
+takeown /F "%systemdrive%\mount\Program Files\Windows Defender" /R /A
+
+icacls "%systemdrive%\mount\Program Files\Windows Defender" /T /Inheritance:e /grant Администраторы:F
+
+rd /s /q "%systemdrive%\mount\Program Files\Windows Defender"
+
+######################################################################################
+
+takeown /F "%systemdrive%\mount\Program Files\Windows Security" /R /A
+
+icacls "%systemdrive%\mount\Program Files\Windows Security" /T /Inheritance:e /grant Администраторы:F
+
+rd /s /q "%systemdrive%\mount\Program Files\Windows Security"
+
+######################################################################################
+
+takeown /F "%systemdrive%\mount\Program Files (x86)\Windows Defender" /R /A
+
+icacls "%systemdrive%\mount\Program Files (x86)\Windows Defender" /T /Inheritance:e /grant Администраторы:F
+
+rd /s /q "%systemdrive%\mount\Program Files (x86)\Windows Defender"
+
+######################################################################################
+
+takeown /F "%systemdrive%\mount\ProgramData\Microsoft\Windows Defender" /R /A
+
+icacls "%systemdrive%\mount\ProgramData\Microsoft\Windows Defender" /T /Inheritance:e /grant Администраторы:F
+
+rd /s /q "%systemdrive%\mount\ProgramData\Microsoft\Windows Defender"
+
+######################################################################################
+
+takeown /F "%systemdrive%\mount\ProgramData\Microsoft\Windows Defender Advanced Threat Protection" /R /A
+
+icacls "%systemdrive%\mount\ProgramData\Microsoft\Windows Defender Advanced Threat Protection" /T /Inheritance:e /grant Администраторы:F
+
+rd /s /q "%systemdrive%\mount\ProgramData\Microsoft\Windows Defender Advanced Threat Protection"
+
+######################################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+#Dism /UnMount-Wim /MountDir:%systemdrive%\mount /commit

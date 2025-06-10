@@ -1,0 +1,3 @@
+qemu-img.exe create -f qcow2 "C:\test.qcow2" 30G
+
+qemu-system-x86_64.exe -smp 4 -m 3072M -hda "C:\test.qcow2" -cdrom "C:\win10.iso"
