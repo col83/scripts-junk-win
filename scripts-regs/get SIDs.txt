@@ -1,1 +1,6 @@
+:: powershell
+
 Get-LocalUser | Select-Object Name, SID | sort
+
+:: cmd
+wmic useraccount where name='%username%' get sid
