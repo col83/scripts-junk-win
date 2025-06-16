@@ -4,3 +4,6 @@ Get-LocalUser | Select-Object Name, SID | sort
 
 :: cmd
 wmic useraccount where name='%username%' get sid
+
+wmic useraccount where name='%username%' get sid | find "S-"
+wmic useraccount where name='%username%' get sid | find "S-" | clip
