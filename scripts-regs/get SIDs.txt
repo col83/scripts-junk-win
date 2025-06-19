@@ -5,6 +5,7 @@ Get-LocalUser | Select-Object Name, SID | sort
 
 Get-WmiObject -Class Win32_UserAccount -Filter "Name='$env:USERNAME'" | Select-Object SID
 Get-WmiObject -Class Win32_UserAccount -Filter "Name='$env:USERNAME'" | Select-Object SID | findstr "S-
+Get-WmiObject -Class Win32_UserAccount -Filter "Name='$env:USERNAME'" | Select-Object SID | findstr "S-" | clip
 
 :: cmd
 wmic useraccount where name='%username%' get sid
